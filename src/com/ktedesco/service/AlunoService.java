@@ -15,15 +15,15 @@ public class AlunoService {
 	private EntityManager em;
 	
 	public Collection<Aluno> getAluno (){
-		return em.createQuery("SELECT i FROM Aluno i", Aluno.class).getResultList();
+		return em.createQuery("SELECT i FROM Aluno i").getResultList();
 	}
-	public void persist(Aluno imc){
-		imc.setResultado(imc.getAltura()/Math.pow(imc.getPeso(),2));
-		em.persist(imc);
+	public void persist(Aluno aluno){
+		//imc.setResultado(imc.getAltura()/Math.pow(imc.getPeso(),2)); REGRA DE NEGOCIO
+		em.persist(aluno);
 	}
 	
-	public void remove(int id){
-		em.remove(em.find(Aluno.class, id));
+	public void remove(int idAluno){
+		em.remove(em.find(Aluno.class, idAluno));
 	}
 
 }

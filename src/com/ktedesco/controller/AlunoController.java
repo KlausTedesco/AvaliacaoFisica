@@ -3,7 +3,6 @@ package com.ktedesco.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,21 +14,22 @@ import com.ktedesco.entity.Aluno;
 import com.ktedesco.service.AlunoService;
 
 /**
- * Servlet implementation class ImcService
+ * Servlet implementation class AlunoController
  */
-@WebServlet("/DadosAluno")
+@WebServlet("/Cadastro")
 public class AlunoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private AlunoService service;
-	
+	 /**
+     * @see HttpServlet#HttpServlet()
+     */	
     public AlunoController() {
-        super();
-        
+        super();  
     }
 
-	/**
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,16 +40,12 @@ public class AlunoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action =request.getParameter("action");
+		String action = request.getParameter("action");
 		switch (action) {
 		case "Gravar":
 			SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy");
 			try {
-				Aluno imc = new Aluno(request.getParameter("nome"),sdf.parse(request.getParameter("dataNascimento")),Integer.parseInt(request.getParameter("altura")), Double.parseDouble(request.getParameter("peso")));
-//				imc.setResultado(Integer.parseInt(request.getParameter("altura")), Double.parseDouble(request.getParameter("peso")));
-//				imc.getResultado();
-				service.persist(imc);
-								
+				service.persist( new Aluno(request.getParameter("nome"),request.getParameter("cpf"),sdf.parse(request.getParameter("datanasc")), request.getParameter("telefone"), request.getParameter("email")));			
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
@@ -57,7 +53,7 @@ public class AlunoController extends HttpServlet {
 			}
 			break;
 		case "Excluir":
-			service.remove(Integer.parseInt(request.getParameter("id")));
+			service.remove(Integer.parseInt(request.getParameter("idAluno")));
 			break;
 		default:
 			break;
@@ -67,8 +63,8 @@ public class AlunoController extends HttpServlet {
 	}
 	
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("imc", service.getAluno());
-		request.getRequestDispatcher("/aluno.jsp").forward(request, response);
+		request.setAttribute("alunos", service.getAluno());
+		request.getRequestDispatcher("/cadastro_aluno.jsp").forward(request, response);
 	}
 
 }

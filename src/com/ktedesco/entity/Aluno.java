@@ -8,103 +8,118 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 @Entity
 public class Aluno {
 	
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
-	private Integer id;
+	private Integer idAluno;
 	
-	private String nome;
+	private String nomeAluno;
+	@CPF
+	private String cpfAluno;
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
-	private Integer altura;
-	private Double peso;
-	private Double resultado;
+	private String telefoneAluno;
+	@Email
+	private String emailAluno;
+	
+
 
 	public Aluno() {
 		super();
 	}
 
-	public Integer getId() {
-		return id;
+
+	public Aluno(String nomeAluno, String cpfAluno, Date dataNascimento, String telefoneAluno,
+			String emailAluno) {
+		super();
+		this.nomeAluno = nomeAluno;
+		this.cpfAluno = cpfAluno;
+		this.dataNascimento = dataNascimento;
+		this.telefoneAluno = telefoneAluno;
+		this.emailAluno = emailAluno;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+	public Integer getIdAluno() {
+		return idAluno;
 	}
 
-	public String getNome() {
-		return nome;
+
+	public void setIdAluno(Integer idAluno) {
+		this.idAluno = idAluno;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public String getNomeAluno() {
+		return nomeAluno;
 	}
 
-	public Integer getAltura() {
-		return altura;
+
+	public void setNomeAluno(String nomeAluno) {
+		this.nomeAluno = nomeAluno;
 	}
 
-	public void setAltura(Integer altura) {
-		this.altura = altura;
+
+	public String getCpfAluno() {
+		return cpfAluno;
 	}
 
-	public Double getPeso() {
-		return peso;
+
+	public void setCpfAluno(String cpfAluno) {
+		this.cpfAluno = cpfAluno;
 	}
 
-	public void setPeso(Double peso) {
-		this.peso = peso;
-	}
-	
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
+
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
-	public Double getResultado() {		
-		return resultado;
+
+
+	public String getTelefoneAluno() {
+		return telefoneAluno;
 	}
 
-	
-	public void setResultado(Double resultado) {
-		this.resultado = resultado;
+
+	public void setTelefoneAluno(String telefoneAluno) {
+		this.telefoneAluno = telefoneAluno;
 	}
 
-	public Aluno(String nome, Date dataNascimento, Integer altura, Double peso) {
-		super();
-		this.nome = nome;
-		this.dataNascimento = dataNascimento;
-		this.altura = altura;
-		this.peso = peso;
-		//setResultado(this.altura, this.peso);
-		
+
+	public String getEmailAluno() {
+		return emailAluno;
 	}
-	
-	/*	
-	 	public Imc(Integer id, Double resultado) {
-			super();
-			this.id = id;
-			this.resultado = resultado;
-		}
-	*/
+
+
+	public void setEmailAluno(String emailAluno) {
+		this.emailAluno = emailAluno;
+	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((altura == null) ? 0 : altura.hashCode());
+		result = prime * result + ((cpfAluno == null) ? 0 : cpfAluno.hashCode());
 		result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((peso == null) ? 0 : peso.hashCode());
-		result = prime * result + ((resultado == null) ? 0 : resultado.hashCode());
+		result = prime * result + ((emailAluno == null) ? 0 : emailAluno.hashCode());
+		result = prime * result + ((idAluno == null) ? 0 : idAluno.hashCode());
+		result = prime * result + ((nomeAluno == null) ? 0 : nomeAluno.hashCode());
+		result = prime * result + ((telefoneAluno == null) ? 0 : telefoneAluno.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -115,36 +130,37 @@ public class Aluno {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
-		if (altura == null) {
-			if (other.altura != null)
+		if (cpfAluno == null) {
+			if (other.cpfAluno != null)
 				return false;
-		} else if (!altura.equals(other.altura))
+		} else if (!cpfAluno.equals(other.cpfAluno))
 			return false;
 		if (dataNascimento == null) {
 			if (other.dataNascimento != null)
 				return false;
 		} else if (!dataNascimento.equals(other.dataNascimento))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (emailAluno == null) {
+			if (other.emailAluno != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!emailAluno.equals(other.emailAluno))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		if (idAluno == null) {
+			if (other.idAluno != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!idAluno.equals(other.idAluno))
 			return false;
-		if (peso == null) {
-			if (other.peso != null)
+		if (nomeAluno == null) {
+			if (other.nomeAluno != null)
 				return false;
-		} else if (!peso.equals(other.peso))
+		} else if (!nomeAluno.equals(other.nomeAluno))
 			return false;
-		if (resultado == null) {
-			if (other.resultado != null)
+		if (telefoneAluno == null) {
+			if (other.telefoneAluno != null)
 				return false;
-		} else if (!resultado.equals(other.resultado))
+		} else if (!telefoneAluno.equals(other.telefoneAluno))
 			return false;
 		return true;
 	}
 }
+
