@@ -27,7 +27,7 @@
 		<div class="col-md-2">
 		</div>
 		<div>
-			<form action="Aluno" method="post">
+			<form method="post">
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="nome">Nome</label>
@@ -43,7 +43,7 @@
 						<label for="email">E-Mail</label>
 						<input type="text" id="email" name="email" class="form-control">
 						<label for="datanasc">Data de Nascimento</label>
-						<input type="date" id="datanasc" name="datanasc" class="form-control">
+						<input type="text" id="datanasc" name="datanasc" class="form-control">
 					</div>
 					<div class="form-group" align="right">
 						<input type="submit" value="Cancelar" href="index.jsp" class="btn btn-primary btn-lg">

@@ -13,32 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.ktedesco.entity.Aluno;
 import com.ktedesco.service.AlunoService;
 
-/**
- * Servlet implementation class AlunoController
- */
 @WebServlet("/Cadastro")
 public class AlunoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private AlunoService service;
-	 /**
-     * @see HttpServlet#HttpServlet()
-     */	
+
     public AlunoController() {
         super();  
     }
 
-    /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		forwardToView(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
