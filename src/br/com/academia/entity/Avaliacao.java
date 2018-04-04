@@ -1,16 +1,30 @@
-package com.ktedesco.entity;
+package br.com.academia.entity;
+
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Avaliacao {
+@Table(name="avaliacao")
+public class Avaliacao implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue (strategy=GenerationType.AUTO)
+	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Integer idAvaliacao;
+	private Integer numeroAvaliacao;
+	@Temporal(TemporalType.DATE)
+	private Date dataAvaliacao;
 	private Double pesoAluno;
 	private Double peitoralAluno;
 	private Double cinturaAluno;
@@ -19,14 +33,20 @@ public class Avaliacao {
 	private Double bicepsAluno;
 	private Double quadrilAluno;
 	private Double panturrilhaAluno;
+	@ManyToOne
+	@JoinColumn(name="id_aluno")
+	private Aluno aluno;
 	
 	public Avaliacao() {
 		super();
 	}
 
-	public Avaliacao(Double pesoAluno, Double peitoralAluno, Double cinturaAluno, Double coxaAluno, Double alturaAluno,
-			Double bicepsAluno, Double quadrilAluno, Double panturrilhaAluno) {
+	public Avaliacao(Integer numeroAvaliacao, Date dataAvaliacao, Double pesoAluno, Double peitoralAluno,
+			Double cinturaAluno, Double coxaAluno, Double alturaAluno, Double bicepsAluno, Double quadrilAluno,
+			Double panturrilhaAluno) {
 		super();
+		this.numeroAvaliacao = numeroAvaliacao;
+		this.dataAvaliacao = dataAvaliacao;
 		this.pesoAluno = pesoAluno;
 		this.peitoralAluno = peitoralAluno;
 		this.cinturaAluno = cinturaAluno;
@@ -35,6 +55,7 @@ public class Avaliacao {
 		this.bicepsAluno = bicepsAluno;
 		this.quadrilAluno = quadrilAluno;
 		this.panturrilhaAluno = panturrilhaAluno;
+		
 	}
 
 	public Integer getIdAvaliacao() {
@@ -43,6 +64,22 @@ public class Avaliacao {
 
 	public void setIdAvaliacao(Integer idAvaliacao) {
 		this.idAvaliacao = idAvaliacao;
+	}
+
+	public Integer getNumeroAvaliacao() {
+		return numeroAvaliacao;
+	}
+
+	public void setNumeroAvaliacao(Integer numeroAvaliacao) {
+		this.numeroAvaliacao = numeroAvaliacao;
+	}
+
+	public Date getDataAvaliacao() {
+		return dataAvaliacao;
+	}
+
+	public void setDataAvaliacao(Date dataAvaliacao) {
+		this.dataAvaliacao = dataAvaliacao;
 	}
 
 	public Double getPesoAluno() {
@@ -109,15 +146,26 @@ public class Avaliacao {
 		this.panturrilhaAluno = panturrilhaAluno;
 	}
 
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((alturaAluno == null) ? 0 : alturaAluno.hashCode());
+		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
 		result = prime * result + ((bicepsAluno == null) ? 0 : bicepsAluno.hashCode());
 		result = prime * result + ((cinturaAluno == null) ? 0 : cinturaAluno.hashCode());
 		result = prime * result + ((coxaAluno == null) ? 0 : coxaAluno.hashCode());
+		result = prime * result + ((dataAvaliacao == null) ? 0 : dataAvaliacao.hashCode());
 		result = prime * result + ((idAvaliacao == null) ? 0 : idAvaliacao.hashCode());
+		result = prime * result + ((numeroAvaliacao == null) ? 0 : numeroAvaliacao.hashCode());
 		result = prime * result + ((panturrilhaAluno == null) ? 0 : panturrilhaAluno.hashCode());
 		result = prime * result + ((peitoralAluno == null) ? 0 : peitoralAluno.hashCode());
 		result = prime * result + ((pesoAluno == null) ? 0 : pesoAluno.hashCode());
@@ -139,6 +187,11 @@ public class Avaliacao {
 				return false;
 		} else if (!alturaAluno.equals(other.alturaAluno))
 			return false;
+		if (aluno == null) {
+			if (other.aluno != null)
+				return false;
+		} else if (!aluno.equals(other.aluno))
+			return false;
 		if (bicepsAluno == null) {
 			if (other.bicepsAluno != null)
 				return false;
@@ -154,10 +207,20 @@ public class Avaliacao {
 				return false;
 		} else if (!coxaAluno.equals(other.coxaAluno))
 			return false;
+		if (dataAvaliacao == null) {
+			if (other.dataAvaliacao != null)
+				return false;
+		} else if (!dataAvaliacao.equals(other.dataAvaliacao))
+			return false;
 		if (idAvaliacao == null) {
 			if (other.idAvaliacao != null)
 				return false;
 		} else if (!idAvaliacao.equals(other.idAvaliacao))
+			return false;
+		if (numeroAvaliacao == null) {
+			if (other.numeroAvaliacao != null)
+				return false;
+		} else if (!numeroAvaliacao.equals(other.numeroAvaliacao))
 			return false;
 		if (panturrilhaAluno == null) {
 			if (other.panturrilhaAluno != null)
@@ -181,7 +244,10 @@ public class Avaliacao {
 			return false;
 		return true;
 	}
+
 	
+	
+		
 	
 	
 	

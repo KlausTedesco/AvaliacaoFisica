@@ -1,43 +1,52 @@
-package com.ktedesco.entity;
+package br.com.academia.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
-public class Aluno {
+@Table(name="aluno")
+public class Aluno implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue (strategy=GenerationType.AUTO)
+	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Integer idAluno;
-	
 	private String nomeAluno;
-	@CPF
 	private String cpfAluno;
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String telefoneAluno;
-	@Email
 	private String emailAluno;
+	@OneToMany( mappedBy="aluno", targetEntity=Avaliacao.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	private List<Avaliacao> aval;
+	@ManyToOne
+	@JoinColumn(name="idprofessor")
+	private Professor professor;
 	
-
-
 	public Aluno() {
 		super();
 	}
-
-
-	public Aluno(String nomeAluno, String cpfAluno, Date dataNascimento, String telefoneAluno,
-			String emailAluno) {
+	public Aluno(String nomeAluno, String cpfAluno, Date dataNascimento, String telefoneAluno, String emailAluno) {
 		super();
 		this.nomeAluno = nomeAluno;
 		this.cpfAluno = cpfAluno;
@@ -45,72 +54,70 @@ public class Aluno {
 		this.telefoneAluno = telefoneAluno;
 		this.emailAluno = emailAluno;
 	}
-
-
+	public Aluno(int id){
+		super();
+		this.idAluno = id;
+	}
 	public Integer getIdAluno() {
 		return idAluno;
 	}
-
-
 	public void setIdAluno(Integer idAluno) {
 		this.idAluno = idAluno;
 	}
-
-
 	public String getNomeAluno() {
 		return nomeAluno;
 	}
-
-
 	public void setNomeAluno(String nomeAluno) {
 		this.nomeAluno = nomeAluno;
 	}
-
-
 	public String getCpfAluno() {
 		return cpfAluno;
 	}
-
-
 	public void setCpfAluno(String cpfAluno) {
 		this.cpfAluno = cpfAluno;
 	}
-
-
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
-
-
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
-
 	public String getTelefoneAluno() {
 		return telefoneAluno;
 	}
-
-
 	public void setTelefoneAluno(String telefoneAluno) {
 		this.telefoneAluno = telefoneAluno;
 	}
-
-
 	public String getEmailAluno() {
 		return emailAluno;
 	}
-
-
 	public void setEmailAluno(String emailAluno) {
 		this.emailAluno = emailAluno;
 	}
-
+	public List<Avaliacao> getAval() {
+		return aval;
+	}
+	public void setAval(List<Avaliacao> aval) {
+		this.aval = aval;
+	}
+	public void addAvaliacao(Avaliacao avaliacao){
+		if(aval == null){
+			aval = new ArrayList<>();
+		}
+		aval.add(avaliacao);
+	}
+	public Professor getProfessor() {
+		return professor;
+	}
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((aval == null) ? 0 : aval.hashCode());
 		result = prime * result + ((cpfAluno == null) ? 0 : cpfAluno.hashCode());
 		result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
 		result = prime * result + ((emailAluno == null) ? 0 : emailAluno.hashCode());
@@ -119,7 +126,6 @@ public class Aluno {
 		result = prime * result + ((telefoneAluno == null) ? 0 : telefoneAluno.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -130,6 +136,11 @@ public class Aluno {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
+		if (aval == null) {
+			if (other.aval != null)
+				return false;
+		} else if (!aval.equals(other.aval))
+			return false;
 		if (cpfAluno == null) {
 			if (other.cpfAluno != null)
 				return false;
@@ -162,5 +173,8 @@ public class Aluno {
 			return false;
 		return true;
 	}
+	
+	
+	
 }
 

@@ -1,8 +1,10 @@
-package com.ktedesco.controller;
+package br.com.academia.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ktedesco.entity.Aluno;
-import com.ktedesco.service.AlunoService;
+import br.com.academia.entity.Aluno;
+import br.com.academia.entity.Avaliacao;
+import br.com.academia.entity.Professor;
+import br.com.academia.service.AlunoService;
 
 @WebServlet("/Cadastro")
 public class AlunoController extends HttpServlet {
@@ -32,17 +36,34 @@ public class AlunoController extends HttpServlet {
 		String action = request.getParameter("action");
 		switch (action) {
 		case "Gravar":
-			SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
+			
+			String nomeAluno = request.getParameter("nome");
+			String cpfAluno = request.getParameter("cpf");
+			Date dataNascimento = null;
 			try {
-				service.persist( new Aluno(request.getParameter("nome"),request.getParameter("cpf"),sdf.parse(request.getParameter("datanasc")), request.getParameter("telefone"), request.getParameter("email")));			
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
+				dataNascimento = sdf.parse(request.getParameter("datanasc"));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			String telefoneAluno = request.getParameter("telefone");
+			String emailAluno = request.getParameter("email");
+			
+			Aluno aluno = new Aluno(nomeAluno, cpfAluno, dataNascimento, telefoneAluno, emailAluno);
+		
+			
+			service.atualiza(aluno);
+			
 			break;
 		case "Excluir":
-			service.remove(Integer.parseInt(request.getParameter("idAluno")));
+			service.remove(Integer.parseInt(request.getParameter("remove")));
+			break;
+		case "Editar":
+			Integer carregarAluno = Integer.parseInt(request.getParameter("Editar"));
+			Aluno alunoE = service.carregarAluno(carregarAluno);
+			
+			request.setAttribute("EditarAluno", alunoE);
+			
 			break;
 		default:
 			break;
@@ -53,9 +74,12 @@ public class AlunoController extends HttpServlet {
 	
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("alunos", service.getAluno());
-		request.getRequestDispatcher("/cadastro_aluno.jsp").forward(request, response);
+		request.getRequestDispatcher("/Cadastro_Aluno.jsp").forward(request, response);
 	}
-
+	private void editaALuno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
 }
 
 
