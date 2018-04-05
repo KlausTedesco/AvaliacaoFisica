@@ -59,10 +59,12 @@ public class AlunoController extends HttpServlet {
 			service.remove(Integer.parseInt(request.getParameter("remove")));
 			break;
 		case "Editar":
-			Integer carregarAluno = Integer.parseInt(request.getParameter("Editar"));
-			Aluno alunoE = service.carregarAluno(carregarAluno);
+			Integer carregarAluno = Integer.parseInt(request.getParameter("id_Edita"));
 			
-			request.setAttribute("EditarAluno", alunoE);
+			Aluno alunoEdicao = service.carregarAluno(carregarAluno);
+			
+			request.setAttribute("alunoEdicao", alunoEdicao);
+			request.getRequestDispatcher("EditaAluno.jsp").forward(request, response);
 			
 			break;
 		default:
@@ -76,9 +78,7 @@ public class AlunoController extends HttpServlet {
 		request.setAttribute("alunos", service.getAluno());
 		request.getRequestDispatcher("/Cadastro_Aluno.jsp").forward(request, response);
 	}
-	private void editaALuno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+	
 	
 }
 

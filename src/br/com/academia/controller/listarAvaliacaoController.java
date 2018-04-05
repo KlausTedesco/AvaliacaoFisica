@@ -15,13 +15,13 @@ import br.com.academia.service.AvaliacaoService;
  * Servlet implementation class listarAvaliacaoController
  */
 @WebServlet("/listarAvaliacao")
-public class listarAvaliacaoController extends HttpServlet {
+public class ListarAvaliacaoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	@Inject
 	private AvaliacaoService service;
 	
-     public listarAvaliacaoController() {
+     public ListarAvaliacaoController() {
         super();
     }
 

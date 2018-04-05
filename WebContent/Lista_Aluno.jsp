@@ -58,30 +58,25 @@
 					
 				</td>
 				<td>
-					<form method="POST" action="listar_Aluno">
-						<input type="hidden" name="Editar" value="<%=alunoNome.getIdAluno() %>"/>
-						<input type="submit" name="action"  class="btn btn-success"value="Editar"/>
+					<form method="POST" action="Cadastro">
+						<input type="hidden" name="id_Edita" value="<%=alunoNome.getIdAluno() %>"/>
+						<input type="submit" name="action" class="btn btn-success"value="Editar"/>
 					</form>
 					
 				</td>
 				<td>
-					<form method="POST" action="listar_Aluno">
+					<form method="POST" action="Cadastro">
 						<input type="hidden" name="remove" value="<%=alunoNome.getIdAluno() %>"/>
-						<input type="submit" name="action"  class="btn btn-danger" value="Excluir"/>
+						<input type="submit" value="Editar" name="action"  class="btn btn-danger" value="Excluir"/>
 					</form>
 					
 				</td>
 			</tr>
-			    		
-			
-	
 		<%			
 				}
 		%>
 		 </table>
-		
 	  <% } %>
-
-		</div>
+	</div>
 </body>
 </html>

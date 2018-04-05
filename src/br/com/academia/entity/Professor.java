@@ -21,6 +21,7 @@ public class Professor implements Serializable {
 		@GeneratedValue (strategy=GenerationType.IDENTITY)
 		private Integer idProfessor;
 		private String nome;
+		private String email;
 		private String loginProfessor;
 		private String passwordProfessor;
 		@OneToMany(mappedBy="professor", targetEntity = Aluno.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -29,10 +30,18 @@ public class Professor implements Serializable {
 		public Professor() {
 			super();
 		}
-		public Professor(String loginProfessor, String passwordProfessor) {
+		public Professor(String nome, String email, String loginProfessor, String passwordProfessor) {
 			super();
+			this.nome = nome;
+			this.email = email;
 			this.loginProfessor = loginProfessor;
 			this.passwordProfessor = passwordProfessor;
+		}
+		public String getEmail() {
+		return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
 		}
 		public String getNome() {
 			return nome;

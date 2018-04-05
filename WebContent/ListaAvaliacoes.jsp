@@ -24,7 +24,7 @@
 			    <tr>
 	      			<th scope="col">Registro:</th>
 	     			<th scope="col">Avaliacao nº:</td>
-					<th scope="col">Data:</td>
+					<th scope="col">Data da Avaliação:</td>
 					<th scope="col">Peso:</td>
 					<th scope="col">Peitoral:</td>
 					<th scope="col">Cintura:</td>

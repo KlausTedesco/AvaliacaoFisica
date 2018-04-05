@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div>
-							<h1>Atendimento</h1>
+							<h1>Atendimentos: <%=session.getValue("sessaoUsuario") %></h1>
 							<br><br>	
 						</div>
 					</div>

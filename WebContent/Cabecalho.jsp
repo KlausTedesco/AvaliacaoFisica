@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page import="br.com.academia.entity.Professor"%>
+<%@ page language="java" contentType="	; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -44,10 +45,25 @@
 			        <li><a href="listarAvaliacao">Avaliaçoes</a></li>
 			        <li><a href="#">Graficos</a></li>
 			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			    	<li><a href="login.jsp"><span class="glyphicon glyphicon-user"></span> Sair</a></li>
+			   	<ul class="nav navbar-nav navbar-right">
+	 		 	<%
+							
+			    	if(session.getValue("sessaoUsuario")!=null){
+				%>
+					 <li><a><span >Professor Logged: <%=session.getValue("sessaoUsuario") %></span></a></li> 
+					 			
+			   	<%
+			   			}else{
+			   	%>
+			   	 	<li><a><span ></span>Entre com usuário e senha.</a></li>
+			  
+			   	<%	
+			   			}
+			    	%> 
+			  	<li><a href="Login.jsp"><span class="glyphicon glyphicon-user"></span> Sair</a></li>
 			    	<li><a></a></li>
 			    </ul>
+			   
    			</div>
 		</div>
 	</nav>
