@@ -50,7 +50,11 @@ public class AlunoController extends HttpServlet {
 			String emailAluno = request.getParameter("email");
 			
 			Aluno aluno = new Aluno(nomeAluno, cpfAluno, dataNascimento, telefoneAluno, emailAluno);
-		
+
+			String id = request.getParameter("id");
+			if (id != null && id.matches("^[0-9]+$")){
+				aluno.setIdAluno(Integer.parseInt(id));
+			}
 			
 			service.atualiza(aluno);
 			

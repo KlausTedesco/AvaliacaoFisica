@@ -17,7 +17,7 @@ public class AlunoService {
 		return em.createQuery("FROM Aluno").getResultList();
 	}
 	public void atualiza(Aluno	aluno){
-		em.persist(aluno);
+		em.merge(aluno);
 	}
 	public void persist(Aluno aluno){
 		em.persist(aluno);

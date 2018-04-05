@@ -18,13 +18,15 @@
 <body>
 	<% 
 	Aluno alunoEdicao = (Aluno) request.getAttribute("alunoEdicao"); 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			%>
 	 <div class="row">
 		<div class="col-md-2">
 		</div>
 		<div>
 			<form method="POST">
+				<input type="hidden" id="nome" name="id" class="form-control" value="<%=alunoEdicao.getIdAluno()%>"/>
+			
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="nome">Nome</label>
