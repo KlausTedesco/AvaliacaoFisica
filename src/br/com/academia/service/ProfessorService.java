@@ -4,13 +4,8 @@ package br.com.academia.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.jms.Session;
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
-
-import org.postgresql.util.LruCache.CreateAction;
 
 import br.com.academia.entity.Professor;
 
