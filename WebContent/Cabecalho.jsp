@@ -50,7 +50,7 @@
 							
 			    	if(session.getValue("sessaoUsuario")!=null){
 				%>
-					 <li><a><span >Professor Logged: <%=session.getValue("sessaoUsuario") %></span></a></li> 
+					 <li><a><span >Professor: <%=session.getValue("sessaoUsuario") %></span></a></li> 
 					 			
 			   	<%
 			   			}else{
@@ -60,7 +60,7 @@
 			   	<%	
 			   			}
 			    	%> 
-			  	<li><a href="Login.jsp"><span class="glyphicon glyphicon-user"></span> Sair</a></li>
+			  	<li><a href="Login"><span class="glyphicon glyphicon-user"></span> Sair</a></li>
 			    	<li><a></a></li>
 			    </ul>
 			   

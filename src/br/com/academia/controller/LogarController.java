@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.academia.entity.Professor;
 import br.com.academia.service.ProfessorService;
 
-@WebServlet("/LogarU")
+@WebServlet("/Login")
 public class LogarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,6 +24,10 @@ public class LogarController extends HttpServlet {
     public LogarController() {
         super();
     }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		forwardToView(request,response);
+	}
 
 	protected void doPost( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html;charset=UTF-8");
@@ -34,24 +38,33 @@ public class LogarController extends HttpServlet {
 		Professor professor = new Professor();
 		professor.setLoginProfessor(usuarioLogado);
 		professor.setPasswordProfessor(senha);
-		RequestDispatcher rd = null;
 		
 		if(service.verificaProfessor(usuarioLogado, senha)){
 			 
 			HttpSession sessao = request.getSession();
 			sessao.setAttribute("sessaoUsuario", usuarioLogado);
 			request.setAttribute("usuarioLogado", usuarioLogado);
-			rd = request.getRequestDispatcher("/Index.jsp");
-			rd.forward(request, response);
-			
+			response.sendRedirect("Index.jsp");
+			forwardToView(request, response);
 			
 		}else{
-			System.out.println("passeio aqui ");
 			request.setAttribute("mensagem", usuarioLogado);
-			rd = request.getRequestDispatcher("CadastroProfessor.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("Login");
+			forwardToView(request, response);
+		}
+		
+		String action = request.getParameter("action");
+		switch (action) {
+		case "Cadastrar":
+			response.sendRedirect("CadastroProfessor");
+			break;
+		default:
+			break;
 		}
 	}
 	
+	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/Login.jsp").forward(request, response);
+	}
 	
 }

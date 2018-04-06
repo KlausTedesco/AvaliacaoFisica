@@ -33,38 +33,37 @@
 					  <div class="form-group">
 					    <label for="nome" class="col-sm-2 control-label">Nome</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name ="nome" id="nome" placeholder="Nome">
+						      <input type="text" class="form-control" name ="nome" id="nome" placeholder="Nome" required>
 						    </div>
 					  </div>
 					  <div class="form-group">
 					   	 <label for="Email" class="col-sm-2 control-label">Email</label>
 						    <div class="col-sm-10">
-						      <input type="email" class="form-control" name ="email"  id="email" placeholder="Email">
+						      <input type="email" class="form-control" name ="email"  id="email" placeholder="Email" required>
 						      </div>
 					  </div>
 					   <div class="form-group">
 					   	 <label for="User" class="col-sm-2 control-label">Usuario</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name ="user" id="user" placeholder="Usuário">
+						      <input type="text" class="form-control" name ="user" id="user" placeholder="Usuário" required>
 					  		</div>
 					  </div>
 					  <div class="form-group">
 					    <label for="senha" class="col-sm-2 control-label">Senha</label>
 						    <div class="col-sm-10">
-						      <input type="password" class="form-control" name ="senha"  id="senha" placeholder="Senha">
+						      <input type="password" class="form-control" name ="senha"  id="senha" placeholder="Senha" required>
 						    </div>
 					  </div>
 					  <div class="form-group">
 					    <label for="matricula" class="col-sm-2 control-label">Matricula</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" id="matricula" placeholder="Matricula">
+						      <input type="text" class="form-control" id="matricula" placeholder="Matricula" required>
 						    </div>
 					  </div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="submit" value="novo" name="action" class="btn btn-success">Novo</button>
-				     <button type="submit" value="salvar" name="action" class="btn btn-primary">Salvar</button>
-				   	  <button type="submit" value="excluir" name="action" class="btn btn-danger">Excluir</button>
+				     <button type="submit" value="Salvar" name="action" class="btn btn-primary">Salvar</button>
+				   	  <button type="submit" value="Cancelar" name="action" class="btn btn-danger">Cancelar</button>
 				   
 				   	  <br><br>
 				   

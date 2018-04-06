@@ -26,7 +26,7 @@
     <div class="col-md-5">
 	</div>
 	<div class="col-md-2">
-	    <form method="POST" class="form-signin" action="LogarU">
+	    <form method="POST" class="form-signin">
 	    	<br><br>
 	    	<img class="mb-4" src="img/logo_KF.png" alt="" width="152" height="152">
 	      	<h2 class="h2 mb-3 font-weight-normal">Fazer Login</h2>
@@ -42,7 +42,8 @@
 		       	</label>
 	      	</div>
 	      	<br>
-	      	<input type="submit" value="acessar"  class="btn btn-lg btn-primary btn-block"/>
+	      	<input type="submit" value="Entrar"  class="btn btn-lg btn-primary btn-block"/>
+			<a href=CadastroProfessor class="btn btn-primary btn-lg">Cadastrar-se</a>
 	      	<p class="mt-5 mb-3 text-muted">&copy; 2018</p>
 	    </form>
 	</div>

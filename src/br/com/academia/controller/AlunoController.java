@@ -80,7 +80,7 @@ public class AlunoController extends HttpServlet {
 	
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("alunos", service.getAluno());
-		request.getRequestDispatcher("/Cadastro_Aluno.jsp").forward(request, response);
+		request.getRequestDispatcher("/CadastroAluno.jsp").forward(request, response);
 	}
 	
 	

@@ -30,14 +30,17 @@ public class ProfessorController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-		case "salvar":
-			System.out.println("Aqui é pra salvar o professor");
+		case "Salvar":
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
 			String loginProfessor = request.getParameter("user");
 			String passwordProfessor = request.getParameter("senha");
 			Professor professor = new Professor(nome, email, loginProfessor, passwordProfessor);
 			service.persist(professor);
+			response.sendRedirect("Login");
+			break;
+		case "Cancelar":
+			response.sendRedirect("Login");
 			break;
 		default:
 			break;
@@ -45,6 +48,6 @@ public class ProfessorController extends HttpServlet {
 			forwardToView(request, response);
 		}
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		request.getRequestDispatcher("Login.jsp").forward(request, response);
+		request.getRequestDispatcher("CadastroProfessor.jsp").forward(request, response);
 	}
 }
