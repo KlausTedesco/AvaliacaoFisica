@@ -18,8 +18,9 @@ public class AvaliacaoService {
 	public List<Avaliacao> getAvaliacao(){
 		return em.createQuery("FROM Avaliacao").getResultList();
 	}
-	public void persistAv (Avaliacao avaliacao){
-		em.persist(avaliacao);
+	public void atualizaAvaliacao (Avaliacao avaliacao){
+		avaliacao.setImc(avaliacao.getPesoAluno()/Math.pow(avaliacao.getAlturaAluno()/100, 2));
+		em.merge(avaliacao);
 	}
 	public void removeAv (int id){
 		em.remove(em.find(Avaliacao.class, id));
@@ -28,8 +29,10 @@ public class AvaliacaoService {
 		Aluno alunoRet = em.find(Aluno.class, id);
 		return alunoRet;
 	}
-	public void autaliza(Avaliacao	avaliacao){
-		em.merge(avaliacao);
+	
+	public Avaliacao carregarAvaliacao(int id){
+		Avaliacao avaliacaoRet = em.find(Avaliacao.class, id);
+		return avaliacaoRet;
 	}
 
 }

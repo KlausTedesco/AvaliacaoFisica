@@ -17,7 +17,7 @@ import br.com.academia.entity.Avaliacao;
 import br.com.academia.service.AvaliacaoService;
 
 
-@WebServlet("/Avaliacao")
+@WebServlet("/CadastrarAvaliacao")
 public class AvaliacaoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -34,7 +34,6 @@ public class AvaliacaoController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		
 		switch (action) {
 		case "Salvar":
 			SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
@@ -55,18 +54,36 @@ public class AvaliacaoController extends HttpServlet {
 			Double quadrilAluno= Double.parseDouble(request.getParameter("quadril"));
 			Double panturrilhaAluno= Double.parseDouble(request.getParameter("pantu"));
 			
-			Avaliacao A = new Avaliacao(numeroAvaliacao, dataAvaliacao, pesoAluno, peitoralAluno, cinturaAluno, coxaAluno, alturaAluno, bicepsAluno, quadrilAluno, panturrilhaAluno);
+			Avaliacao avaliacao = new Avaliacao(numeroAvaliacao, dataAvaliacao, pesoAluno, peitoralAluno, cinturaAluno, coxaAluno, alturaAluno, bicepsAluno, quadrilAluno, panturrilhaAluno);
 			
 			int atua = Integer.parseInt(request.getParameter("alunoid"));
-			System.out.println(action);
+			
 			Aluno aluno = service.carregarAluno(atua);
 			
-			A.setAluno(aluno);
-			aluno.addAvaliacao(A);
-			service.persistAv(A);
+			avaliacao.setAluno(aluno);
+			aluno.addAvaliacao(avaliacao);
+			
+			String id = request.getParameter("id");
+			if (id != null && id.matches("^[0-9]+$")){
+				avaliacao.setIdAvaliacao(Integer.parseInt(id));
+			}
+			
+			service.atualizaAvaliacao(avaliacao);
 			
 			break;
-
+		case "Excluir":
+			
+			int remover = Integer.parseInt(request.getParameter("remove"));
+			service.removeAv(remover);
+			break;
+		case "Editar":
+			
+			Integer carregarAvaliacao = Integer.parseInt(request.getParameter("id_Edita"));
+			Avaliacao avaliacaoEdicao = service.carregarAvaliacao(carregarAvaliacao);
+			
+			request.setAttribute("avaliacaoEdicao", avaliacaoEdicao);
+			request.getRequestDispatcher("EditarAvaliacao").forward(request, response);	
+			break;
 		default:
 			break;
 		}
@@ -77,7 +94,7 @@ public class AvaliacaoController extends HttpServlet {
 
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("Avaliacoes", service.getAvaliacao());
-		request.getRequestDispatcher("/Avaliacao.jsp").forward(request, response);
+		request.getRequestDispatcher("/CadastrarAvaliacao.jsp").forward(request, response);
 		
 	}
 	

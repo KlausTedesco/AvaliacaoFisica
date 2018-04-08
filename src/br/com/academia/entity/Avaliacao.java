@@ -3,6 +3,9 @@ package br.com.academia.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.annotation.ManagedBean;
+import javax.enterprise.context.SessionScoped;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +18,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="avaliacao")
+@ManagedBean
+@SessionScoped
 public class Avaliacao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -33,7 +38,8 @@ public class Avaliacao implements Serializable {
 	private Double bicepsAluno;
 	private Double quadrilAluno;
 	private Double panturrilhaAluno;
-	@ManyToOne
+	private Double Imc;
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
 	
@@ -56,6 +62,15 @@ public class Avaliacao implements Serializable {
 		this.quadrilAluno = quadrilAluno;
 		this.panturrilhaAluno = panturrilhaAluno;
 		
+	}
+
+	
+	public Double getImc() {
+		return Imc;
+	}
+
+	public void setImc(Double imc) {
+		Imc = imc;
 	}
 
 	public Integer getIdAvaliacao() {

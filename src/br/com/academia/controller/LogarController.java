@@ -3,7 +3,6 @@ package br.com.academia.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,20 +14,23 @@ import br.com.academia.entity.Professor;
 import br.com.academia.service.ProfessorService;
 
 @WebServlet("/Login")
+
 public class LogarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@Inject
+	
 	private ProfessorService service;
        
     public LogarController() {
         super();
     }
+    Object professorLogado = new Object();
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		forwardToView(request,response);
+		forwardToView(request, response);
 	}
-
+    
 	protected void doPost( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html;charset=UTF-8");
 		
@@ -40,26 +42,17 @@ public class LogarController extends HttpServlet {
 		professor.setPasswordProfessor(senha);
 		
 		if(service.verificaProfessor(usuarioLogado, senha)){
-			 
+			professorLogado = service.carregarProfessor(usuarioLogado, senha);
+			
 			HttpSession sessao = request.getSession();
-			sessao.setAttribute("sessaoUsuario", usuarioLogado);
-			request.setAttribute("usuarioLogado", usuarioLogado);
+			sessao.setAttribute("sessaoUsuario", professorLogado);
+			request.setAttribute("usuarioLogado", professorLogado);
 			response.sendRedirect("Index.jsp");
 			forwardToView(request, response);
 			
 		}else{
 			request.setAttribute("mensagem", usuarioLogado);
-			response.sendRedirect("Login");
 			forwardToView(request, response);
-		}
-		
-		String action = request.getParameter("action");
-		switch (action) {
-		case "Cadastrar":
-			response.sendRedirect("CadastroProfessor");
-			break;
-		default:
-			break;
 		}
 	}
 	

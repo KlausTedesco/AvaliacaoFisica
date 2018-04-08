@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import br.com.academia.entity.Professor;
 
 @Stateless
+
 public class ProfessorService {
 
 	@PersistenceContext
@@ -32,6 +33,13 @@ public class ProfessorService {
 					.getResultList().isEmpty();
 	
 	}
+	public Object carregarProfessor(String usuario, String senha){
+		return em.createQuery("FROM Professor WHERE loginProfessor = :login AND passwordProfessor = :senha")
+				.setParameter("login", usuario)
+				.setParameter("senha", senha)
+				.getSingleResult();
+	}	
 	
+		
 	
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="professor")
+@ManagedBean
+@SessionScoped
 public class Professor implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
@@ -24,7 +28,7 @@ public class Professor implements Serializable {
 		private String email;
 		private String loginProfessor;
 		private String passwordProfessor;
-		@OneToMany(mappedBy="professor", targetEntity = Aluno.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+		@OneToMany(mappedBy="professor", targetEntity = Aluno.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 		private List<Aluno> listaAluno;
 		
 		public Professor() {

@@ -14,7 +14,7 @@ import br.com.academia.service.AvaliacaoService;
 /**
  * Servlet implementation class listarAvaliacaoController
  */
-@WebServlet("/listarAvaliacao")
+@WebServlet("/ListarAvaliacao")
 public class ListarAvaliacaoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -34,6 +34,6 @@ public class ListarAvaliacaoController extends HttpServlet {
 	}
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("avaliacoes", service.getAvaliacao());
-		request.getRequestDispatcher("/ListaAvaliacoes.jsp").forward(request, response);
+		request.getRequestDispatcher("/ListarAvaliacao.jsp").forward(request, response);
 	}
 }

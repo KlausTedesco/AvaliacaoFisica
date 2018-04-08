@@ -37,20 +37,20 @@
 			        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Alunos<span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
 			          	
-			            	<li><a href=Cadastro>Cadastrar Aluno</a></li>
-			            	<li><a href=listar_Aluno>Todos os Alunos</a></li>
+			            	<li><a href=CadastrarAluno>Cadastrar Aluno</a></li>
+			            	<li><a href=ListarAluno>Todos os Alunos</a></li>
 			          	</ul>
 			        </li>
-			        <li><a href="Avaliacao">Fichas</a></li>
-			        <li><a href="listarAvaliacao">Avaliaçoes</a></li>
+			        <li><a href="CadastrarAvaliacao">Fichas</a></li>
+			        <li><a href="ListarAvaliacao">Avaliaçoes</a></li>
 			        <li><a href="#">Graficos</a></li>
 			    </ul>
 			   	<ul class="nav navbar-nav navbar-right">
 	 		 	<%
-							
+	 		 	Professor professor = (Professor) session.getAttribute("sessaoUsuario");		
 			    	if(session.getValue("sessaoUsuario")!=null){
 				%>
-					 <li><a><span >Professor: <%=session.getValue("sessaoUsuario") %></span></a></li> 
+					 <li><a><span >Professor Logged: <%=professor.getNome() %></span></a></li> 
 					 			
 			   	<%
 			   			}else{

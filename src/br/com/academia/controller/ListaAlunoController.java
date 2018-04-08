@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.academia.service.AlunoService;
 
 
-@WebServlet("/Alunos")
+@WebServlet("/ListarAluno")
 public class ListaAlunoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,6 +39,6 @@ public class ListaAlunoController extends HttpServlet {
 
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("alunos", service.getAluno());
-		request.getRequestDispatcher("/ListaAluno.jsp").forward(request, response);
+		request.getRequestDispatcher("/ListarAluno.jsp").forward(request, response);
 	}
 }

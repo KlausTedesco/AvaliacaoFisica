@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.academia.entity.Professor;
 import br.com.academia.service.ProfessorService;
 
-@WebServlet("/CadastroProfessor")
+@WebServlet("/CadastrarProfessor")
 public class ProfessorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,7 +30,7 @@ public class ProfessorController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-		case "Salvar":
+		case "salvar":
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
 			String loginProfessor = request.getParameter("user");
@@ -39,15 +39,12 @@ public class ProfessorController extends HttpServlet {
 			service.persist(professor);
 			response.sendRedirect("Login");
 			break;
-		case "Cancelar":
-			response.sendRedirect("Login");
-			break;
 		default:
 			break;
 		}
 			forwardToView(request, response);
 		}
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		request.getRequestDispatcher("CadastroProfessor.jsp").forward(request, response);
+		request.getRequestDispatcher("CadastrarProfessor.jsp").forward(request, response);
 	}
 }

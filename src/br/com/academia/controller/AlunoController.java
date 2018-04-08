@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,8 @@ import br.com.academia.entity.Avaliacao;
 import br.com.academia.entity.Professor;
 import br.com.academia.service.AlunoService;
 
-@WebServlet("/Cadastro")
+@WebServlet("/CadastrarAluno")
+
 public class AlunoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -38,6 +40,7 @@ public class AlunoController extends HttpServlet {
 		case "Gravar":
 			SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
 			
+			int idProfessor = Integer.parseInt(request.getParameter("id_prof"));
 			String nomeAluno = request.getParameter("nome");
 			String cpfAluno = request.getParameter("cpf");
 			Date dataNascimento = null;
@@ -49,8 +52,13 @@ public class AlunoController extends HttpServlet {
 			String telefoneAluno = request.getParameter("telefone");
 			String emailAluno = request.getParameter("email");
 			
+			Professor professor = new Professor();
+			professor.setIdProfessor(idProfessor);
+			
 			Aluno aluno = new Aluno(nomeAluno, cpfAluno, dataNascimento, telefoneAluno, emailAluno);
-
+			aluno.setProfessor(professor);
+			professor.addListaAluno(aluno);
+			
 			String id = request.getParameter("id");
 			if (id != null && id.matches("^[0-9]+$")){
 				aluno.setIdAluno(Integer.parseInt(id));
@@ -60,7 +68,11 @@ public class AlunoController extends HttpServlet {
 			
 			break;
 		case "Excluir":
-			service.remove(Integer.parseInt(request.getParameter("remove")));
+			int remover = Integer.parseInt(request.getParameter("remove"));
+			service.remove(remover);
+			
+			request.getRequestDispatcher("ListarAluno").forward(request, response);
+			
 			break;
 		case "Editar":
 			Integer carregarAluno = Integer.parseInt(request.getParameter("id_Edita"));
@@ -68,7 +80,7 @@ public class AlunoController extends HttpServlet {
 			Aluno alunoEdicao = service.carregarAluno(carregarAluno);
 			
 			request.setAttribute("alunoEdicao", alunoEdicao);
-			request.getRequestDispatcher("EditaAluno.jsp").forward(request, response);
+			request.getRequestDispatcher("EditarAluno").forward(request, response);
 			
 			break;
 		default:
@@ -80,7 +92,7 @@ public class AlunoController extends HttpServlet {
 	
 	private void forwardToView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("alunos", service.getAluno());
-		request.getRequestDispatcher("/CadastroAluno.jsp").forward(request, response);
+		request.getRequestDispatcher("/CadastrarAluno.jsp").forward(request, response);
 	}
 	
 	

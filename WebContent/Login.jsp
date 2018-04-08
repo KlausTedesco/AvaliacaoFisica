@@ -43,7 +43,7 @@
 	      	</div>
 	      	<br>
 	      	<input type="submit" value="Entrar"  class="btn btn-lg btn-primary btn-block"/>
-			<a href=CadastroProfessor class="btn btn-primary btn-lg">Cadastrar-se</a>
+	      	<a href="CadastrarProfessor"><input type="button" value="Cadastre-se"  class="btn btn-lg btn-primary btn-block"/></a>
 	      	<p class="mt-5 mb-3 text-muted">&copy; 2018</p>
 	    </form>
 	</div>
