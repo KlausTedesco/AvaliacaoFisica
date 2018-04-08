@@ -35,12 +35,12 @@ public class Aluno implements Serializable {
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Integer idAluno;
 	private String nomeAluno;
-	@CPF
+	@CPF (message="CPF inválido")
 	private String cpfAluno;
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String telefoneAluno;
-	@Email
+	@Email (message="Email inválido")
 	private String emailAluno;
 	@OneToMany( mappedBy="aluno", targetEntity=Avaliacao.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private List<Avaliacao> aval;

@@ -1,12 +1,15 @@
 package br.com.academia.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.academia.entity.Aluno;
-import br.com.academia.entity.Avaliacao;
 import br.com.academia.entity.Professor;
 import br.com.academia.service.AlunoService;
 
@@ -42,22 +44,31 @@ public class AlunoController extends HttpServlet {
 			
 			int idProfessor = Integer.parseInt(request.getParameter("id_prof"));
 			String nomeAluno = request.getParameter("nome");
-			String cpfAluno = request.getParameter("cpf");
 			Date dataNascimento = null;
 			try {
 				dataNascimento = sdf.parse(request.getParameter("datanasc"));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+			String cpfAluno = request.getParameter("cpf");
 			String telefoneAluno = request.getParameter("telefone");
-			boolean telefoneCorreto = telefoneAluno.matches("^\\([1-9][0-9]\\)[0-9]{4,5}-[0-9]{4}$");
-			if(telefoneCorreto != true){
-				request.setAttribute("erroTelefone", true);
-		
-			}
 			String emailAluno = request.getParameter("email");
 			
+			/*if (!cpfAluno(false)) {
+		        throw new ValidatorException(new FacesMessage("CPF inválido!"));
+		    }
+			*/
+			if (!telefoneAluno.matches("^\\([1-9][0-9]\\)[0-9]{4,5}-[0-9]{4}$")) {
+		        throw new ValidatorException(new FacesMessage("Telefone inválido!"));
+		    }
+			/*if (!emailAluno(false)) {
+		        throw new ValidatorException(new FacesMessage("Email inválido!"));
+		    }
+			break;
+			*/
+			
+			// Não salvar, se tiver erros. Mostrar todos erros no final (quando clicar em salvar) dar um break e não continuar (a partir daqui)   
+	
 			Professor professor = new Professor();
 			professor.setIdProfessor(idProfessor);
 			
@@ -65,15 +76,13 @@ public class AlunoController extends HttpServlet {
 			aluno.setProfessor(professor);
 			professor.addListaAluno(aluno);
 			
-			 // Não salvar, se tiver erros. Mostrar todos erros no final (quando clicar em salvar) dar um break e não mandar para o banco de dados   
-
 			String id = request.getParameter("id");
 			if (id != null && id.matches("^[0-9]+$")){
 				aluno.setIdAluno(Integer.parseInt(id));
 			}
 			
 			service.atualiza(aluno);
-			
+				
 			break;
 		case "Excluir":
 			int remover = Integer.parseInt(request.getParameter("remove"));

@@ -19,7 +19,7 @@
 		<div class="col-md-2">
 		</div>
 		<div>
-			<form method="POST">
+			<form action="${pageContext.request.contextPath}/AlunoController" method="POST">
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="nome">Nome</label>
@@ -38,6 +38,12 @@
 						<input type="date" id="datanasc" name="datanasc" class="form-control"/>
 					</div>
 					<div class="form-group" align="right">
+						<input type="text" name="erro">
+						<div class="alert alert-warning alert-dismissible fade in">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong>Cuidado!</strong> Alguns campos podem estar errados.
+						</div>
+						
 						<input type="submit" value="Cancelar" href="Index.jsp" class="btn btn-primary btn-lg"/>
 						<input type="submit" value="Gravar" name="action" class="btn btn-primary btn-lg"/>
 						
