@@ -49,7 +49,13 @@ public class AlunoController extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
 			String telefoneAluno = request.getParameter("telefone");
+			boolean telefoneCorreto = telefoneAluno.matches("^\\([1-9][0-9]\\)[0-9]{4,5}-[0-9]{4}$");
+			if(telefoneCorreto != true){
+				request.setAttribute("erroTelefone", true);
+		
+			}
 			String emailAluno = request.getParameter("email");
 			
 			Professor professor = new Professor();
@@ -59,6 +65,8 @@ public class AlunoController extends HttpServlet {
 			aluno.setProfessor(professor);
 			professor.addListaAluno(aluno);
 			
+			 // Não salvar, se tiver erros. Mostrar todos erros no final (quando clicar em salvar) dar um break e não mandar para o banco de dados   
+
 			String id = request.getParameter("id");
 			if (id != null && id.matches("^[0-9]+$")){
 				aluno.setIdAluno(Integer.parseInt(id));

@@ -20,6 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 @Table(name="aluno")
 @ManagedBean
@@ -32,10 +35,12 @@ public class Aluno implements Serializable {
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Integer idAluno;
 	private String nomeAluno;
+	@CPF
 	private String cpfAluno;
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String telefoneAluno;
+	@Email
 	private String emailAluno;
 	@OneToMany( mappedBy="aluno", targetEntity=Avaliacao.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private List<Avaliacao> aval;
